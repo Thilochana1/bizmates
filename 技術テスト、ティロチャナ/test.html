@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>    <!--題名-->
+
+    <style>     /*CSS*/
+      html {
+        font-family: sans-serif;          /*文字の種類*/
+      }
+      
+      
+
+      body {
+        background-image:linear-gradient(rgba(0, 0, 0, 0),rgba(0,0,0,0)), url("roulet.jpg");
+        background-repeat: no-repeat;    /*画像が繰り返して表示しない*/
+        background-size: cover;          /*画像と画面のサイズが同じになる*/
+        width: 50%;                      /*親要素の幅に対する比率で幅が決まる*/
+        margin: 0 auto;                  /*CSSの中央寄せ*/
+      }
+
+
+      .formbox{                          /*画面左側の薄黒い箱の設定*/
+        width: 330px;
+        height: 789px;
+        position: absolute;
+        left: -20px;
+        top: -100px;
+        margin: 2% auto;
+        background: rgba(0, 0, 0, 0.705);
+        padding: 10px;
+        overflow:hidden;
+      }
+
+      .logo img{                         /*ロゴの設定*/
+        position: absolute;
+        top: 80px;
+        left: 60px;
+        height: 240px;
+        width: 240px;
+
+      }
+
+      .button{                           /*ビズメイツボタンの設定*/
+        position: absolute;
+        text-align: center;
+        top: 400px;
+        left: 50px;
+        width: 180px;
+        padding: 30px;
+        font-size: 16px;
+        color: #cccccc;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 400;
+        border: 5px solid #cccccc;
+        text-transform: uppercase;
+        letter-spacing: 15px;
+        cursor: pointer;
+        border-radius: 100px;
+        transition: 1.5s;
+        
+      }
+
+      .button:hover{                      /*ビズメイツボタンの色が光る設定*/
+        box-shadow: 0 5px 0 #04286b inset, 0 5px 50px 0 #04286b, 0 5px 50px 0 #04286b inset, 0 5px 50px 0 #04286b;
+      }
+
+      .button1{                          /*historyaボタンの設定*/
+        position: absolute;
+        text-align: center;
+        top: 530px;
+        left: 50px;
+        width: 180px;
+        padding: 30px;
+        font-size: 16px;
+        color: #cccccc;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 400;
+        border: 5px solid #cccccc;
+        text-transform: uppercase;
+        letter-spacing: 15px;
+        cursor: pointer;
+        border-radius: 100px;
+        transition: 1.5s;
+        
+      }
+
+      .button1:hover{                  /*historyaボタンの光る設定*/
+        box-shadow: 0 5px 0 #960000 inset, 0 5px 50px 0 #960000, 0 5px 50px 0 #960000 inset, 0 5px 50px 0 #960000;
+      }
+
+      .button2{                        /*bullmenボタンの設定*/
+        position: absolute;
+        text-align: center;
+        top: 660px;
+        left: 50px;
+        width: 180px;
+        padding: 30px;
+        font-size: 16px;
+        color: #cccccc;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 400;
+        border: 5px solid #cccccc;
+        text-transform: uppercase;
+        letter-spacing: 15px;
+        cursor: pointer;
+        border-radius: 100px;
+        transition: 1.5s;
+        
+      }
+
+      .button2:hover{                   /*bullmenボタンの光る設定*/
+        box-shadow: 0 5px 0 #00c92b inset, 0 5px 50px 0 #00c92b, 0 5px 50px 0 #00c92b inset, 0 5px 50px 0 #00c92b;
+      }
+
+
+      .ore img{                          /*自分の顔、押すとgitに移動できる*/
+        position: absolute;
+        width: 100px;
+        height: 150px;
+        top: 550px;
+        left: 1300px;
+      }
+      
+     .whitebox{                          /*画面の白い箱の設定*/
+        position: relative;              /*相対配置*/
+        top: 140px;                      /*上からの位置*/
+        left: 120px;                      /*左からの位置*/
+        width: 700px;                    /*幅の長さ*/
+        height: 350px;                   /*高さ*/
+        padding: 20px;                   /*ボーダー内側の余白*/
+        border: 8px solid rgb(100, 37, 22);           /*境界線の色と幅*/
+        background: #f7f0e9;  /*箱の中の色*/
+
+      }
+    
+    
+      h2{                            /*Light/dark modeボタンの文字設定*/
+        position:absolute;           /*絶対配置*/
+        left: 1200px;                /*左からの位置*/
+        font-size: 20px;             /*文字の大きさ*/
+        color: #f7f0e9;            /*文字の色*/
+      }
+      
+
+      .langWrap a{                   /*言語変換ボックスの設定*/
+        text-transform: uppercase;
+        color: #f7f0e9;
+        text-decoration: none;
+        padding: 0 15px;
+        font-weight: bold;
+        background: rgb(65, 64, 64);
+        font-size: 20px;
+      }
+
+      .langWrap a.active{            /*選択している言語の設定*/
+        background: red;
+      }
+      
+      .switch input{ 
+        display: none;                    /*要素を非表示*/
+      }
+
+      .switch{
+        position: relative;               /*相対配置*/
+        left: 850px;                      /*色変換ボタンの左からの位置*/
+        display: inline-block;            /*要素の幅は中身に合わせた大きさになる*/
+        width: 60px;                      /*幅の広さ*/
+        height: 34px;                     /*高さ*/
+        top: 60px;                        /*上からの位置*/
+      }
+
+      
+      
+
+      .slider{                            /*Light/dark modeボタンのスライド*/
+        position: absolute;               /*絶対配置*/
+        cursor: pointer;                  /*カーソルの形を指差しの手にする*/
+        top: 0;                           /*上からの位置*/
+        left: 0;                          /*左からの位置*/
+        right: 0;                         /*右からの位置*/
+        bottom: 0;                        /*下からの位置*/
+        background: rgb(78, 72, 72);    /*色*/
+        border-radius: 34px;              /*半径*/
+        transition: .4s;                  /*変化*/
+      }
+      　   
+      .slider:before {                    /*Light/dark modeボタンの白い円の設定*/
+        content: "";                      /*要素を生成された値で置き換える*/
+        position: absolute;               /*絶対配置*/
+        height: 26px;                     /*高さ*/
+        width: 26px;                      /*幅*/
+        left: 4px;                        /*左からの位置*/
+        bottom: 4px;                      /*下から位置*/
+        background: #fff;               /*色*/
+        border-radius: 50%;               /*半径*/
+        transition: .4s;                  /*変化*/
+      }
+     
+      /* 同じコードを２回書いた理由は、１回目で反応せず、２回目に同じコードを書いたらコードが動いたから*/  
+      .slider:before {                    /*Light/dark modeボタンの白い円の設定*/
+        content: "";                      /*要素を生成された値で置き換える*/
+        position: absolute;               /*絶対配置*/
+        height: 26px;                     /*高さ*/
+        width: 26px;                      /*幅*/
+        left: 4px;                        /*左からの位置*/
+        bottom: 4px;                      /*下から位置*/
+        background: #fff;               /*色*/
+        border-radius: 50%;               /*半径*/
+        transition: .4s;                  /*変化*/
+      }
+      
+     
+      input:checked + .slider{           /*クリックした時のLight/dark modeボタンの周りの設定*/
+        background: #b892ff;           /*色*/
+      }
+   
+      
+     
+      input:checked + .slider:before {
+        transform: translateX(26px);    /*位置の変化*/
+      }
+      
+      .dark-mode {
+        background: #0b0a14;           /*dark mode時の色*/
+      }
+      
+      .dark-mode h2{
+        color: #f7f0e9;               /*ダークモードの時のLight/dark modeという文字の色*/
+      }
+     
+      .lastResult{                      /*Wrong文字の設定*/
+        color: rgb(255, 255, 255);            
+        padding: 3px;
+      }
+      
+
+       
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div id="container">                         <!--Light/dark modeボタンの設定-->
+      <h2>Light / Dark Mode</h2>
+      <label class="switch">
+      <input type="checkbox" onclick="changeMode()">
+      <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="langWrap">                        <!--言語変換ボックス-->
+			<a href="#" language='english' class="active">ENGLISH</a>
+			<a href="#" language='japanese'>日本語</a>
+		</div>
+          
+    <div class="formbox">                        <!--薄黒い箱-->
+      <div class="logo">
+        <img src="biz.png">
+      </div>
+
+      <div class="buttonchange">                 <!--ビズメイツボタン-->
+        <a href="https://www.bizmates.co.jp/">
+         <div class="button">Bizmates</div>
+        </a>
+      </div>
+
+      <div class="buttonchange1">                <!--historyaボタン--> 
+        <a href="http://historya.ga/">
+         <div class="button1">Historya</div>
+        </a>
+      </div>
+
+      <div class="buttonchange2">                <!--bullmenボタン-->
+        <a href="https://unadaptable-caution.000webhostapp.com/">
+         <div class="button2">BULL MEN</div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="ore">                             <!--自分の顔-->
+      <a href="https://github.com/Thilochana1">
+        <img src="jibunkao.png">
+      </a>
+    </div>
+    
+
+    <div class="whitebox">   　　                 <!--白い箱の中の設定-->
+      <h1 class="title">Number guessing game</h1>
+      <p class="description">We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low.</p>
+      <div class="form">
+        <label for="guessField">Enter a guess: </label><input type="text" id="guessField" class="guessField">
+        <input type="submit" value="Submit guess" class="guessSubmit">
+      </div>
+
+      <div class="resultParas">                   <!--結果の設定-->  
+       <p class="guesses"></p>
+       <p class="lastResult"></p>
+       <p class="lowOrHi"></p>
+      </div>
+      <!--ここから下はJavaScript-->
+      
+      <script>                                    /*色変換用のスクリプト*/
+        function changeMode() {
+         var element = document.body;             /*文章の内容を持つ要素*/
+         element.classList.toggle("dark-mode");   /*dark-modeが設定されていれば除去し、なければ追加*/
+        }
+
+      </script>
+      
+      <script>                                    /*言語変換を行うためのスクリプト*/
+        const langEl = document.querySelector('.langWrap');
+        const link = document.querySelectorAll('a');
+        const titleEl = document.querySelector('.title');
+	     	const descrEl = document.querySelector('.description');
+
+	    	link.forEach(el => {
+		  	el.addEventListener('click', () => {
+				langEl.querySelector('.active').classList.remove('active');
+				el.classList.add('active');
+
+				const attr = el.getAttribute('language');
+
+				titleEl.textContent = data[attr].title;
+				descrEl.textContent = data[attr].description;
+			});
+		});
+
+    　　　
+    var data = {                            
+			  "english":                                                     /*英語の場合*/
+			  {
+			    "title": "Number guessing game",
+			    "description": 
+				    "We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low."
+			  },
+			 
+			  "japanese":                                                    /*日本語の場合*/
+			  {
+			    "title": "数当てゲーム",
+			    "description": 
+				    "1から100以内の数字がランダムに1つ選ばれます。その選ばれた数を予想し当てなさい。チャーンスは10回です。ヒントとして予想の数が選ばれた数より大きいか小さいか教えます。"
+			  }
+			}
+      </script>
+
+      <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;       /*1から100の中からランダムに数を選ぶ*/
+        const guesses = document.querySelector('.guesses');           /*セレクタ指定により任意のHTML要素を取得できる*/
+        const lastResult = document.querySelector('.lastResult');     /*セレクタ指定により任意のHTML要素を取得できる*/
+        const lowOrHi = document.querySelector('.lowOrHi');           /*セレクタ指定により任意のHTML要素を取得できる*/
+        const guessSubmit = document.querySelector('.guessSubmit');   /*セレクタ指定により任意のHTML要素を取得できる*/
+        const guessField = document.querySelector('.guessField');     /*セレクタ指定により任意のHTML要素を取得できる*/
+        let guessCount = 1;                                           /*ブロックスコープのローカル変数を宣言*/
+        let resetButton;                                              /*ブロックスコープのローカル変数を宣言*/
+
+        function checkGuess() {                                       /*関数*/
+          const userGuess = Number(guessField.value);　　　　　　　　　/*自動的に数値に変換される*/
+          if (guessCount === 1) {                                     /*型を変換せずguessCountが1だった場合*/
+            guesses.textContent = 'Previous guesses: ';               /*HTMLを解釈せずにそのまま文字として出力*/
+          
+          }
+
+         guesses.textContent += userGuess + ' ';                       /*HTMLを解釈せずにそのまま文字として出力*/
+        
+
+
+         if (userGuess === randomNumber) {                                /*正解した場合*/
+           lastResult.textContent = 'Congratulations! You got it right!'; /*そのまま文字として出力*/
+           lastResult.style.backgroundColor = 'green';                    /*背景が緑になる*/
+           lowOrHi.textContent = '';                                      /*スペース*/
+           setGameOver();                                                 /*ゲーム終了*/
+          } else if (guessCount === 10) {                                 /*挑戦が10回目になった場合*/
+           lastResult.textContent = '!!!GAME OVER!!!';　　　　　　　　　　 /*そのまま文字として出力*/
+           lowOrHi.textContent = '';                                      /*スペース*/
+           setGameOver();                                                 /*ゲーム終了*/
+          } else {                                                        /*不正解した場合*/
+           lastResult.textContent = 'Wrong!';                             /*そのまま文字として出力*/
+           lastResult.style.backgroundColor = 'red';                      /*背景が赤になる*/
+           if(userGuess < randomNumber) {                                 /*予想が正解より小さい場合*/
+             lowOrHi.textContent = 'Last guess was too low!' ;            /*そのまま文字として出力*/
+            } else if(userGuess > randomNumber) {                         /*予想が正解より大きい場合*/
+             lowOrHi.textContent = 'Last guess was too high!';            /*そのまま文字として出力*/
+            }
+          }
+
+          guessCount++;                                                    /*インクリメント演算子*/
+          guessField.value = '';                                           /*スペース*/
+          guessField.focus();                                              /*フォーカスが与えられる*/
+        }
+
+        guessSubmit.addEventListener('click', checkGuess);                 /*イベントに合わせて実行させる関数を登録*/
+
+        function setGameOver() {　　　　　　　　　　　　　　　　　　　　　　　/*ゲーム終了の場合*/
+         guessField.disabled = true;                                       /*入力不可の場合*/
+         guessSubmit.disabled = true;                                      /*入力不可の場合*/
+         resetButton = document.createElement('button');                   /*ボタンを作成*/
+         resetButton.textContent = 'Start new game';                       /*ボタンに入る文*/
+         document.body.appendChild(resetButton);                           
+         resetButton.addEventListener('click', resetGame);
+        }
+
+        function resetGame() {
+         guessCount = 1;
+         const resetParas = document.querySelectorAll('.resultParas p');
+         for (const resetPara of resetParas) {
+            resetPara.textContent = '';
+          }
+
+         resetButton.parentNode.removeChild(resetButton);
+         guessField.disabled = false;
+         guessSubmit.disabled = false;
+         guessField.value = '';
+         guessField.focus();
+         lastResult.style.backgroundColor = 'white';
+         randomNumber = Math.floor(Math.random() * 100) + 1;
+        }
+      </script>
+
+    </div>
+
+  </body>
+  
+</html>
